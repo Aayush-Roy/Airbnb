@@ -1,26 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<% layout("/layouts/boilerplate") %>
+
 <body>
-    <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
-        <input type="text" name="listing[title]" value="<%=listing.title%>">
-        <br>
-        <textarea name="listing[description]" id="" >
-            <%=listing.description%>
-        </textarea>
-        <br>
-        <input type="text" name="listing[image]" id="" value="<%=listing.image.url%>">
-        <br>
-        <input type="number" name="listing[price]" value="<%=listing.price%>">
-        <br>
-        <input type="text" name="listing[location]" value="<%=listing.location%>">
-        <br>
-        <input type="text" name="listing[country]" id="" value="<%=listing.country%>">
-        <button>Submit</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <h1 class="text-center my-4">Edit Your Listing</h1>
+
+                <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" name="listing[title]" class="form-control" value="<%= listing.title %>" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="listing[description]" id="description" class="form-control" rows="4" required><%= listing.description %></textarea>
+                    </div>
+
+                    <!-- Original Image -->
+                    <div class="mb-3">
+                        <label class="form-label">Original Image</label><br>
+                        <img src="<%= listing.image.url %>" class="img-fluid" style="height:250px; width:370px;"  alt="Listing Image">
+                    </div>
+
+                    <!-- New Image Upload -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">New Image Upload</label>
+                        <input type="file" name="listing[image]" id="image" class="form-control">
+                    </div>
+
+                    <!-- Price and Country -->
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" name="listing[price]" class="form-control" value="<%= listing.price %>" required>
+                        </div>
+
+                        <div class="mb-3 col-md-8">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" name="listing[country]" id="country" class="form-control" value="<%= listing.country %>" required>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="btn btn-dark w-100 mt-3">Submit</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
